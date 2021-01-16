@@ -41,10 +41,10 @@ function App() {
   const deleteItem = async (id) => {
     try {
       setLoading(true);
-      const result = await axios.delete('http://localhost:5000/items', id);
+      const result = await axios.delete(`http://localhost:5000/items/${id}`);
       setItems(result.data);
     } catch (err) {
-      console.log(err.stack);
+      console.log(err);
     } finally {
       setLoading(false);
     }

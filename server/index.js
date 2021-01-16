@@ -30,8 +30,9 @@ app.post('/items', (req, res) => {
   res.json(items);
 });
 
-app.delete('/items', (req, res) => {
-  const { id } = req.body;
+app.delete('/items/:id', (req, res) => {
+  const { id } = req.params;
+  console.log(id);
   items = items.filter((item) => item.id !== id);
   res.json(items);
 });
