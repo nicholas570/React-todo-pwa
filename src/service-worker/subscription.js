@@ -19,13 +19,10 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 function sendSubscription(subscription) {
-  return fetch(`http://localhost:8080/notifications/subscribe`, {
-    method: 'POST',
-    body: JSON.stringify(subscription),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  return axios.post(
+    `http://localhost:8080/notifications/subscribe`,
+    subscription
+  );
 }
 
 export function subscribeUser() {
