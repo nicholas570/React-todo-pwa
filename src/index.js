@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import * as serviceWorker from './serviceWorkerRegistration';
+import * as serviceWorker from './service-worker/serviceWorkerRegistration';
+import { subscribeUser } from './service-worker/subscription';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
@@ -18,3 +20,4 @@ ReactDOM.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 serviceWorker.register();
+subscribeUser();

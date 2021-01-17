@@ -1,6 +1,14 @@
 const express = require('express');
 const { uuid } = require('uuidv4');
 const cors = require('cors');
+const webPush = require('web-push');
+require('dotenv').config();
+
+webPush.setVapidDetails(
+  process.env.WEB_PUSH_CONTACT,
+  process.env.PUBLIC_VAPID_KEY,
+  process.env.PRIVATE_VAPID_KEY
+);
 
 const port = process.env.PORT || 8080;
 
@@ -35,6 +43,25 @@ app.delete('/items/:id', (req, res) => {
   console.log(id);
   items = items.filter((item) => item.id !== id);
   res.json(items);
+});
+
+// PUSH NOTIFICATIONS
+app.post('/notifications/subscribe', (req, res) => {
+  const subscription = req.body;
+
+  console.log(subscription);
+
+  const payload = JSON.stringify({
+    title: 'Hello!',
+    body: 'It works.',
+  });
+
+  webPush
+    .sendNotification(subscription, payload)
+    .then((result) => console.log(result))
+    .catch((e) => console.log(e.stack));
+
+  res.status(200).json({ success: true });
 });
 
 app.listen(port, (err) => {
