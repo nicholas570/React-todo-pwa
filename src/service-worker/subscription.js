@@ -52,7 +52,6 @@ export function subscribeUser() {
                   sendSubscription(newSubscription);
                 })
                 .catch(function (e) {
-                  console.log(Notification.permission);
                   if (Notification.permission !== 'granted') {
                     console.log('Permission was not granted.');
                   } else {
