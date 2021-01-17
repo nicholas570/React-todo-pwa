@@ -2,7 +2,7 @@ const express = require('express');
 const { uuid } = require('uuidv4');
 const cors = require('cors');
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 
 const app = express();
 

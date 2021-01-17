@@ -13,7 +13,7 @@ function App() {
   const fetchItems = async () => {
     try {
       setLoading(true);
-      const result = await axios.get('http://localhost:5000/items');
+      const result = await axios.get('http://localhost:8080/items');
       setItems(result.data);
     } catch (err) {
       console.log(err.stack);
@@ -26,7 +26,7 @@ function App() {
     e.preventDefault();
     try {
       setLoading(true);
-      const result = await axios.post('http://localhost:5000/items', {
+      const result = await axios.post('http://localhost:8080/items', {
         todoItem,
       });
       setItems(result.data);
@@ -41,7 +41,7 @@ function App() {
   const deleteItem = async (id) => {
     try {
       setLoading(true);
-      const result = await axios.delete(`http://localhost:5000/items/${id}`);
+      const result = await axios.delete(`http://localhost:8080/items/${id}`);
       setItems(result.data);
     } catch (err) {
       console.log(err);
