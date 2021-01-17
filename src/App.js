@@ -27,6 +27,7 @@ function App() {
     try {
       setLoading(true);
       const result = await axios.post('http://localhost:8080/items', {
+        subscription: localStorage.getItem('SUBSCRIPTION'),
         todoItem,
       });
       setItems(result.data);

@@ -32,24 +32,33 @@ app.get('/items', (req, res) => {
 });
 
 app.post('/items', (req, res) => {
-  const { todoItem } = req.body;
-  console.log(req.body);
+  const { todoItem, subscription } = req.body;
   items.push({ id: uuid(), item: todoItem });
+
+  console.log('subcription', JSON.parse(subscription));
+  const payload = JSON.stringify({
+    title: 'Hello!',
+    body: 'New item added.',
+  });
+
+  webPush
+    .sendNotification(JSON.parse(subscription), payload)
+    .then((result) => console.log(result))
+    .catch((e) => console.log(e.stack));
+
   res.json(items);
 });
 
 app.delete('/items/:id', (req, res) => {
   const { id } = req.params;
-  console.log(id);
   items = items.filter((item) => item.id !== id);
+
   res.json(items);
 });
 
 // PUSH NOTIFICATIONS
 app.post('/notifications/subscribe', (req, res) => {
   const subscription = req.body;
-
-  console.log(subscription);
 
   const payload = JSON.stringify({
     title: 'Hello!',
@@ -58,10 +67,10 @@ app.post('/notifications/subscribe', (req, res) => {
 
   webPush
     .sendNotification(subscription, payload)
-    .then((result) => console.log(result))
+    .then((result) => console.log(result, 'result'))
     .catch((e) => console.log(e.stack));
 
-  res.status(200).json({ success: true });
+  res.status(200).json({ success: true, subscription });
 });
 
 app.listen(port, (err) => {

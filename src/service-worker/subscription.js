@@ -19,10 +19,14 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 function sendSubscription(subscription) {
-  return axios.post(
-    `http://localhost:8080/notifications/subscribe`,
-    subscription
-  );
+  return axios
+    .post(`http://localhost:8080/notifications/subscribe`, subscription)
+    .then(({ data }) => {
+      localStorage.setItem('SUBSCRIPTION', JSON.stringify(data.subscription));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 export function subscribeUser() {
